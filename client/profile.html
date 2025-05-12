@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./img/agenda.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡TODO CONTROLADO!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <!-- Scripts -->
+  <script defer type="module" src="js/utils/utils.js"></script>
+  <script defer type="module" src="js/api/api.js"></script>
+  <script defer type="module" src="js/auth/auth.js"></script>
+  <script defer type="module" src="js/auth/profilePage.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <div class="header-container">
+        <div class="weather-container">
+          <div class="weather-search">
+            <input type="text" id="cityInput" placeholder="Buscar ciudad..." value="Sevilla">
+            <button id="searchWeather" aria-label="Buscar clima de la ciudad">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div id="weatherInfo" class="weather-info"></div>
+        </div>
+
+        <div id="currentDateTime" class="current-date-time">
+          <!-- Fecha y hora aquí -->
+        </div>
+
+        <div class="user-menu" id="userMenu">
+          <!-- Se carga dinámicamente -->
+        </div>
+      </div>
+    </header>
+
+    <main class="main-container" id="mainContainer">
+      <!-- Panel central - Perfil de usuario -->
+      <section class="profile-container">
+        <div class="content-tabs">
+          <a href="index.html" class="tab-btn" aria-label="Ver tareas">Tareas</a>
+          <a href="index.html#events" class="tab-btn" aria-label="Ver eventos">Eventos</a>
+          <a href="index.html#calendar" class="tab-btn" aria-label="Ver calendario">Calendario</a>
+          <a href="chat.html" class="tab-btn" aria-label="Ver chat">Chat</a>
+        </div>
+
+        <div class="profile-info"> 
+          <h2 id="profileName" class="profile-name">Cargando...</h2>
+          <form id="profileForm" class="profile-form">
+            <div class="form-group">
+              <label for="name">Nombre y apellidos</label>
+              <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" required readonly>
+              <small>El email no se puede cambiar</small>
+            </div>
+            <div class="form-group">
+              <label for="newPassword">Nueva contraseña (dejar en blanco para no cambiar)</label>
+              <input type="password" id="newPassword">
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirmar nueva contraseña</label>
+              <input type="password" id="confirmPassword">
+            </div>
+            <div id="profileMessage" class="profile-message" aria-live="polite"></div>
+            <button type="submit" class="primary-btn" id="saveProfileBtn">
+              <i class="fas fa-save"></i> Guardar cambios
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer">
+        <p>&copy; 2025 Antonio Gómez. Desde Andalucía, con ❤.</p>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

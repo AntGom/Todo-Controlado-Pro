@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./img/agenda.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡TODO CONTROLADO!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!--  CSS  -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/calendar.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <!-- Scripts (orden es crítico) -->
+  <script defer type="module" src="js/utils/utils.js"></script>
+  <script defer type="module" src="js/api/api.js"></script>
+  <script defer type="module" src="js/auth/auth.js"></script>
+  <script defer type="module" src="js/core.js"></script>
+  <script defer type="module" src="js/features/tasks.js"></script>
+  <script defer type="module" src="js/features/events.js"></script>
+  <script defer type="module" src="js/features/calendar.js"></script>
+  <script defer type="module" src="js/pages/index.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <div class="header-container">
+        <div class="weather-container">
+          <div class="weather-search">
+            <input type="text" id="cityInput" placeholder="Buscar ciudad..." value="Sevilla">
+            <button id="searchWeather" aria-label="Buscar clima de la ciudad"><i class="fas fa-search"></i></button>
+          </div>
+          <div id="weatherInfo" class="weather-info"></div>
+        </div>
+
+        <div id="currentDateTime" class="current-date-time">
+          <!-- Fecha y hora aquí -->
+        </div>
+
+        <div class="user-menu" id="userMenu">
+          <!-- Se carga dinámicamente -->
+        </div>
+      </div>
+    </header>
+
+    <main class="main-container" id="mainContainer">
+      <!-- Panel central - Lista de tareas -->
+      <section class="tasks-container">
+        <article class="tasks-header">
+          <div class="dropdown-container">
+            <div class="dropdown-header" id="filterDropdown">
+              <span id="currentFilterText">Filtrar Tareas</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="dropdown-menu" id="filterMenu">
+              <div class="dropdown-item" data-filter="all">
+                <i class="fas fa-tasks"></i> Todas las tareas
+              </div>
+              <div class="dropdown-item" data-filter="pending">
+                <i class="fas fa-clock"></i> Pendientes
+              </div>
+              <div class="dropdown-item" data-filter="inProgress">
+                <i class="fas fa-spinner"></i> En Progreso
+              </div>
+              <div class="dropdown-item" data-filter="completed">
+                <i class="fas fa-check-circle"></i> Completadas
+              </div>
+            </div>
+          </div>
+          <div class="task-btns">
+            <button id="addTaskBtn" class="primary-btn" aria-label="Agregar nueva tarea">
+              <i class="fas fa-plus"></i> Nueva Tarea
+            </button>
+            <button id="addEventBtn" class="secondary-btn" aria-label="Agregar nuevo evento">
+              <i class="fas fa-calendar-plus"></i> Nuevo Evento
+            </button>
+          </div>
+        </article>
+
+        <div class="content-tabs">
+          <button id="showTasksTab" class="tab-btn active" aria-label="Ver tareas">Tareas</button>
+          <button id="showEventsTab" class="tab-btn" aria-label="Ver eventos">Eventos</button>
+          <button id="showCalendarTab" class="tab-btn" aria-label="Ver calendario">Calendario</button>
+          <a href="chat.html" class="tab-btn" aria-label="Ver chat">Chat</a>
+        </div>
+
+        <section id="tasksList" class="tasks-list">
+          <!-- Tareas se cargan aquí -->
+        </section>
+
+        <section id="eventsList" class="events-list hidden">
+          <!-- Eventos se cargan aquí -->
+        </section>
+
+        <section id="calendarView" class="calendar-view hidden">
+          <article class="calendar-header">
+            <div class="calendar-nav">
+              <button id="prevMonth" class="calendar-nav-btn" aria-label="Mes anterior"><i class="fas fa-chevron-left"></i></button>
+              <h3 id="currentMonthYear">Abril 2025</h3>
+              <button id="nextMonth" class="calendar-nav-btn" aria-label="Mes siguiente"><i class="fas fa-chevron-right"></i></button>
+            </div>
+          </article>
+          <div id="calendarMonthView" class="calendar-month-view">
+            <div class="calendar-weekdays">
+              <div>Lun</div>
+              <div>Mar</div>
+              <div>Mié</div>
+              <div>Jue</div>
+              <div>Vie</div>
+              <div>Sáb</div>
+              <div>Dom</div>
+            </div>
+            <div id="calendarDaysGrid" class="calendar-grid">
+              <!-- Días del calendario se generarán aquí -->
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <section class="news-container">
+          <article class="news-header">
+            <img src="./img/noticias.png" alt="Icono noticias">
+            <h2>Noticias</h2>
+          </article>
+          <section id="newsList" class="news-list"></section>
+        </section>
+      </aside>
+    </main>
+
+    <!-- Modal añadir/editar tarea -->
+    <div id="taskModal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+      <div class="modal-content">
+        <span class="close-modal" aria-label="Cerrar modal">&times;</span>
+        <h2 id="modalTitle">Nueva Tarea</h2>
+        <form id="taskForm" aria-labelledby="modalTitle">
+          <input type="hidden" id="taskId">
+          <div class="form-group">
+            <label for="title">Título:</label>
+            <input type="text" id="title" required aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea id="description" rows="3" aria-describedby="descriptionHelp"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="dueDate">Fecha de vencimiento:</label>
+            <input type="datetime-local" id="dueDate" required aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="status">Estado:</label>
+            <select id="status">
+              <option value="pending">Pendiente</option>
+              <option value="inProgress">En Progreso</option>
+              <option value="completed">Completada</option>
+            </select>
+          </div>
+          <button type="submit" class="primary-btn" id="saveTaskBtn">Guardar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal añadir/editar evento -->
+    <div id="eventModal" class="modal" role="dialog" aria-labelledby="eventModalTitle" aria-hidden="true">
+      <div class="modal-content">
+        <span class="close-modal" aria-label="Cerrar modal">&times;</span>
+        <h2 id="eventModalTitle">Nuevo Evento</h2>
+        <form id="eventForm" aria-labelledby="eventModalTitle">
+          <input type="hidden" id="eventId">
+          <div class="form-group">
+            <label for="eventTitle">Título:</label>
+            <input type="text" id="eventTitle" required aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="eventDetails">Detalles:</label>
+            <textarea id="eventDetails" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="eventDate">Fecha y hora:</label>
+            <input type="datetime-local" id="eventDate" required aria-required="true">
+          </div>
+          <div class="form-group">
+            <label for="eventLocation">Ubicación:</label>
+            <input type="text" id="eventLocation">
+          </div>
+          <button type="submit" class="primary-btn" id="saveEventBtn">Guardar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal para ver detalles de día -->
+    <div id="dayDetailsModal" class="modal" role="dialog" aria-labelledby="dayDetailsTitle" aria-hidden="true">
+      <div class="modal-content">
+        <span class="close-modal" aria-label="Cerrar modal">&times;</span>
+        <h2 id="dayDetailsTitle">Actividades para el 15 de Abril</h2>
+        <div id="dayDetailsTasks" class="day-details-section">
+          <h3>Tareas</h3>
+          <div id="dayTasksList" class="day-items-list"></div>
+        </div>
+        <div id="dayDetailsEvents" class="day-details-section">
+          <h3>Eventos</h3>
+          <div id="dayEventsList" class="day-items-list"></div>
+        </div>
+        <div class="day-actions">
+          <button id="addTaskFromDay" class="primary-btn" aria-label="Agregar tarea para este día">
+            <i class="fas fa-plus"></i> Nueva Tarea
+          </button>
+          <button id="addEventFromDay" class="secondary-btn" aria-label="Agregar evento para este día">
+            <i class="fas fa-calendar-plus"></i> Nuevo Evento
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer">
+      <p>&copy; 2025 Antonio Gómez. Desde Andalucía, con ❤.</p>
+    </div>  
+  </footer>
+
+</body>
+
+</html>

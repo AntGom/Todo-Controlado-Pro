@@ -1,0 +1,567 @@
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+ 
+}
+
+.tasks-header {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  gap: 2rem;
+}
+
+.task-btns {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: auto;
+}
+
+.primary-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.secondary-btn {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: auto;
+}
+
+.secondary-btn:hover {
+  background-color: var(--secondary-dark);
+  transform: translateY(-2px);
+}
+
+/* Pestañas */
+.content-tabs {
+  display: flex;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.tab-btn {
+  padding: 0.6rem 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--dark-gray);
+  transition: var(--transition);
+  text-decoration: none;
+  font-size: 0.95rem;
+  margin-bottom: -1px;
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--primary-dark);
+}
+
+.hidden {
+  display: none;
+}
+
+/* Elementos tareas/eventos */
+.task-item, .event-item {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border-left: 4px solid transparent;
+}
+
+.task-item:hover, .event-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.task-item {
+  border-left-color: var(--primary-color);
+}
+
+.event-item {
+  border-left-color: var(--secondary-color);
+}
+
+.task-header, .event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.task-title, .event-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-right: 1rem;
+  flex: 1;
+}
+
+.task-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.status-inProgress {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.status-completed {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.task-date, .event-date, .event-location {
+  color: var(--dark-gray);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.task-description, .event-details {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.task-actions, .event-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.btn-edit, .btn-delete {
+  background-color: transparent;
+  border: 1px solid var(--medium-gray);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.btn-edit {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-delete {
+  color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.btn-edit:hover {
+  transform: translateY(-2px);
+}
+
+.btn-delete:hover {
+  transform: translateY(-2px);
+
+}
+
+/* Tareas/eventos vacíos */
+.empty-tasks, .empty-events {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--dark-gray);
+  font-size: 1rem;
+}
+
+.empty-tasks i, .empty-events i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--medium-gray);
+  opacity: 0.5;
+}
+
+/* Modales */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  backdrop-filter: blur(3px);
+}
+
+.modal-day{
+  z-index: 500;
+}
+
+.modal-content {
+  background-color: white;
+  margin: 5% auto;
+  width: 90%;
+  max-width: 500px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding: 1rem;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-modal {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 0.75rem;
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--danger-color);
+  transition: var(--transition);
+}
+
+.close-modal:hover {
+  transform: rotate(90deg);
+}
+
+#modalTitle, #eventModalTitle, #dayDetailsTitle {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--light-gray);
+  border-radius: var(--border-radius);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Modal de un día */
+.day-details-section {
+  margin-bottom: 1.75rem;
+}
+
+.day-details-section h3 {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--light-gray);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.day-items-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.day-items-list .task-item,
+.day-items-list .event-item {
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+}
+
+.day-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: start;
+  align-items: center;
+}
+
+/* Área de fotos para tareas */
+.task-photos-container {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid var(--light-gray);
+  padding-top: 1rem;
+}
+
+.task-photos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.task-photos-header h3 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.task-photos-upload {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.task-photos-upload input[type="file"] {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.task-photos-upload label {
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--border-radius);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.task-photos-upload label:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.task-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.task-photo-item {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--light-gray);
+  height: 100px;
+  background-color: var(--bg-color);
+}
+
+.task-photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: var(--transition);
+}
+
+.task-photo-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.task-photo-item:hover .task-photo-actions {
+  opacity: 1;
+}
+
+.task-photo-item:hover img {
+  filter: brightness(0.9);
+}
+
+.btn-delete-photo {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0.4rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.btn-delete-photo:hover {
+  color: var(--danger-color);
+}
+
+.task-photo-placeholder {
+  background-color: var(--bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--medium-gray);
+  font-size: 2rem;
+}
+
+.task-photos-upload-status {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--dark-gray);
+}
+
+.upload-status-progress {
+  height: 4px;
+  width: 100%;
+  background-color: var(--light-gray);
+  border-radius: 2px;
+  margin-top: 0.3rem;
+}
+
+.upload-status-bar {
+  height: 100%;
+  width: 0;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+  transition: width 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tasks-header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .tasks-header:has(.dropdown-container[style*="display: block"]) .task-btns {
+    flex-direction: column;
+    width: auto;
+  }
+  
+  .primary-btn, .secondary-btn {
+    white-space: nowrap;
+    font-size: 0.7rem;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .content-tabs {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  
+  .tab-btn {
+    white-space: nowrap;
+  }
+  
+  .modal-content {
+    margin: 10% auto;
+    padding: 1.5rem;
+  }
+  
+  .day-actions {
+    gap: 0.5rem;
+  }
+  
+  .task-photos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+  
+  .task-photo-item {
+    height: 80px;
+  }
+}
+
+@media (min-width: 768px){
+  .tasks-container{
+    min-width: 27rem;
+  }
+}
+
+@media (min-width: 980px){
+  .tasks-container{
+    min-width: 40rem;
+  }
+}

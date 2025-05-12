@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./img/agenda.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡TODO CONTROLADO! - Autenticación</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!--  CSS  -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <!-- Scripts -->
+  <script defer type="module" src="js/utils/utils.js"></script>
+  <script defer type="module" src="js/api/api.js"></script>
+  <script defer type="module" src="js/auth/authPage.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <div class="header-container">
+        <h1 style="color: white; font-size: 1.5rem; margin: 0;">¡TODO CONTROLADO!</h1>
+        <div id="currentDateTime" class="current-date-time">
+          <!-- Fecha y hora aquí -->
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenedor de autenticación -->
+    <div id="authContainer" class="auth-container">
+      <div class="auth-wrapper">
+        <div class="auth-tabs">
+          <button id="loginTabBtn" class="auth-tab-btn active">Iniciar sesión</button>
+          <button id="registerTabBtn" class="auth-tab-btn">Registrarse</button>
+        </div>
+
+        <!-- Formulario de login -->
+        <form id="loginForm" class="auth-form">
+          <h2>Iniciar sesión</h2>
+          <div class="auth-form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" required>
+          </div>
+          <div class="auth-form-group">
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" id="loginPassword" required>
+            <div class="forgot-password">
+              <a href="#" id="forgotPasswordLink">¿Olvidaste tu contraseña?</a>
+            </div>
+          </div>
+          <button type="submit" class="auth-submit-btn">Acceder</button>
+        </form>
+
+        <!-- Formulario de registro -->
+        <form id="registerForm" class="auth-form hidden">
+          <h2>Crear cuenta</h2>
+          <div class="auth-form-group">
+            <label for="registerName">Nombre</label>
+            <input type="text" id="registerName" required>
+          </div>
+          <div class="auth-form-group">
+            <label for="registerEmail">Email</label>
+            <input type="email" id="registerEmail" required>
+          </div>
+          <div class="auth-form-group">
+            <label for="registerPassword">Contraseña</label>
+            <input type="password" id="registerPassword" required>
+          </div>
+          <div class="auth-form-group">
+            <label for="registerPasswordConfirm">Confirmar contraseña</label>
+            <input type="password" id="registerPasswordConfirm" required>
+          </div>
+          <button type="submit" class="auth-submit-btn">Registrarse</button>
+        </form>
+
+        <!-- Formulario de recuperar contraseña -->
+        <form id="forgotPasswordForm" class="auth-form hidden">
+          <h2>Recuperar contraseña</h2>
+          <p>Ingresa tu email y te enviaremos un enlace para restablecer tu contraseña.</p>
+          <div class="auth-form-group">
+            <label for="forgotEmail">Email</label>
+            <input type="email" id="forgotEmail" required>
+          </div>
+          <button type="submit" class="auth-submit-btn">Enviar enlace</button>
+          <div class="back-to-login">
+            <a href="#" id="backToLoginLink">Volver al inicio de sesión</a>
+          </div>
+        </form>
+        <div id="authMessage" class="auth-message"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer">
+      <p>&copy; 2025 Antonio Gómez. Desde Andalucía, con ❤.</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>

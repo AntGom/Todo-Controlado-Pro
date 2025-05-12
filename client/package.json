@@ -1,0 +1,17 @@
+{
+  "name": "client",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Cliente para la aplicación de gestión de tareas y eventos",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "nodemon": "^3.0.1",
+    "socket.io-client": "^4.7.2",
+    "vite": "^6.3.3"
+  }
+}

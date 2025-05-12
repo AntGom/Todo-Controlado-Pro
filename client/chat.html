@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./img/agenda.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡TODO CONTROLADO! - Chat</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <!-- Scripts -->
+  <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+  <script defer type="module" src="js/utils/utils.js"></script>
+  <script defer type="module" src="js/api/api.js"></script>
+  <script defer type="module" src="js/auth/auth.js"></script>
+  <script defer type="module" src="js/core.js"></script>
+  <script defer type="module" src="js/features/chat.js"></script>
+  <script defer type="module" src="js/pages/chatPage.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <div class="header-container">
+        <div class="weather-container">
+          <div class="weather-search">
+            <input type="text" id="cityInput" placeholder="Buscar ciudad..." value="Sevilla">
+            <button id="searchWeather" aria-label="Buscar clima de la ciudad"><i class="fas fa-search"></i></button>
+          </div>
+          <div id="weatherInfo" class="weather-info"></div>
+        </div>
+
+        <div id="currentDateTime" class="current-date-time">
+          <!-- Fecha y hora aquí -->
+        </div>
+
+        <div class="user-menu" id="userMenu">
+          <!-- Se carga dinámicamente -->
+        </div>
+      </div>
+    </header>
+
+    <main class="main-container" id="mainContainer">
+      <!-- Panel central - Chat -->
+      <section class="big-container">
+        <div class="content-tabs">
+          <a href="index.html" class="tab-btn" aria-label="Ver tareas">Tareas</a>
+          <a href="index.html#events" class="tab-btn" aria-label="Ver eventos">Eventos</a>
+          <a href="index.html#calendar" class="tab-btn" aria-label="Ver calendario">Calendario</a>
+          <a href="chat.html" class="tab-btn active" aria-label="Ver chat">Chat</a>
+        </div>
+
+        <div class="chat-flex-container">
+          <!-- Lista de usuarios -->
+          <div class="users-list-container">
+            <div class="users-list-header">
+              <div>
+                <i class="fas fa-users"></i> Usuarios
+              </div>
+              <span id="onlineCount">0</span> online
+            </div>
+            
+            <div class="users-list">
+              <div class="room-general active" id="roomGeneral">
+                <i class="fas fa-comments"></i> Sala General
+              </div>
+              
+              <div id="onlineUsersList">
+                <!-- Usuarios conectados -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Contenedor del chat -->
+          <div class="chat-container">
+            <div class="chat-header">
+              <i class="fas fa-comments"></i>
+              <div class="chat-header-title" id="currentChatTitle">Sala General</div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+              <!-- Mensajes del chat -->
+            </div>
+            
+            <div class="chat-input-container">
+              <input type="text" id="chatMessageInput" placeholder="Escribe un mensaje...">
+              <button id="sendMessageBtn" class="chat-send-btn">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer">
+        <p>&copy; 2025 Antonio Gómez. Desde Andalucía, con ❤.</p>
+      </div>  
+    </footer>
+  </div>
+
+</body>
+
+</html>

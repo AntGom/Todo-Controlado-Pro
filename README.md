@@ -225,7 +225,7 @@ NODE_ENV=development
 MONGO_URI=mongodb+srv://...
 
 # JWT
-JWT_SECRET=tu_secreto_jwt
+JWT_SECRET=tu_clave_jwt
 JWT_EXPIRE=7d
 JWT_COOKIE_EXPIRE=7
 

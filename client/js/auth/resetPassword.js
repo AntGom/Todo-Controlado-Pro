@@ -17,13 +17,13 @@ function updateDateTime() {
   }
 }
 
-// Mostrar mensaje en el contenedor de autenticación
+// Mostrar mensaje en contenedor de autenticación
 function showAuthMessage(message, type) {
   authMessage.textContent = message;
   authMessage.className = "auth-message";
   authMessage.classList.add(type);
 
-  // Ocultar mensaje después de un tiempo
+  // Ocultar mensaje
   setTimeout(() => {
     authMessage.classList.remove(type);
   }, 5000);
@@ -73,7 +73,7 @@ async function handleResetPassword(e) {
         "success"
       );
 
-      // Redirigir a la página principal
+      // Redirigir a index
       setTimeout(() => {
         window.location.href = "index.html";
       }, 2000);

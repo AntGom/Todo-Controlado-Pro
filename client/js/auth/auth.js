@@ -118,5 +118,4 @@ export {
   handleLogout
 };
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', checkAuth);

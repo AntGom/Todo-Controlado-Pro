@@ -107,7 +107,7 @@ async function handleLogin(e) {
   }
 }
 
-// Manejar registro de usuario
+// Manejar registro
 async function handleRegister(e) {
   e.preventDefault();
 
@@ -193,7 +193,6 @@ function setupAuthEvents() {
   forgotPasswordForm.addEventListener("submit", handleForgotPassword);
 }
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
   updateDateTime();
   checkAuth();

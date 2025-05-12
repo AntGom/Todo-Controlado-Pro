@@ -77,7 +77,7 @@ async function handleProfileUpdate(e) {
     return;
   }
 
-  // Verificar si las contraseñas coinciden (solo si se está cambiando)
+  // Verificar si contraseñas coinciden (solo si se está cambiando)
   if (newPassword) {
     if (newPassword !== confirmPassword) {
       showProfileMessage("Las contraseñas no coinciden", "error");
@@ -104,7 +104,7 @@ async function handleProfileUpdate(e) {
       userData.password = newPassword;
     }
 
-    // Llamar a la API para actualizar perfil
+    // Llamar API para actualizar perfil
     const response = await api.updateProfile(userData);
 
     if (response.success) {
@@ -114,7 +114,7 @@ async function handleProfileUpdate(e) {
       newPasswordInput.value = "";
       confirmPasswordInput.value = "";
 
-      // Recargar datos del perfil
+      // Recargar datos perfil
       loadProfileData();
     } else {
       showProfileMessage(
@@ -155,7 +155,7 @@ async function searchWeather(city) {
   }
 }
 
-// Restaurar el input a su estado de búsqueda
+// Restaurar input a su estado de búsqueda
 function resetWeatherInput() {
   if (cityInput) {
     cityInput.value = lastSearchedCity;
@@ -167,7 +167,7 @@ function resetWeatherInput() {
 function setupWeatherEvents() {
   if (!searchWeatherBtn || !cityInput) return;
 
-  // Evento para buscar clima
+  // Buscar clima
   searchWeatherBtn.addEventListener("click", () => {
     const city = cityInput.value.trim();
     if (city && !cityInput.classList.contains("weather-result")) {
@@ -175,14 +175,14 @@ function setupWeatherEvents() {
     }
   });
 
-  // Evento para limpiar el input del clima al hacer clic en él
+  // Limpiar el input del clima al hacer clic
   cityInput.addEventListener("click", () => {
     if (cityInput.classList.contains("weather-result")) {
       resetWeatherInput();
     }
   });
 
-  // También buscar clima al presionar Enter
+  // Buscar clima con Enter
   cityInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter" && !cityInput.classList.contains("weather-result")) {
       const city = cityInput.value.trim();
@@ -214,5 +214,4 @@ function setupEvents() {
   }
 }
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", initProfilePage);

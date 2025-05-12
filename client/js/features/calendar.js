@@ -112,7 +112,7 @@ function setupCalendarEvents() {
     addEventFromDay.style.display = isAdmin ? "block" : "none";
   }
 
-  // Cerrar modal al hacer clic fuera del contenido
+  // Cerrar modal si clic fuera
   window.addEventListener("click", (e) => {
     if (e.target === dayDetailsModal) {
       dayDetailsModal.style.display = "none";
@@ -123,13 +123,13 @@ function setupCalendarEvents() {
 // Carga tareas y eventos para mes actual
 async function loadCalendarData() {
   try {
-    // Cargar todas las tareas
+    // Cargar tareas
     const tasksResponse = await api.getTasks();
     if (tasksResponse.success) {
       cachedTasks = tasksResponse.data;
     }
 
-    // Cargar todos los eventos
+    // Cargar eventos
     const eventsResponse = await api.getEvents();
     if (eventsResponse.success) {
       cachedEvents = eventsResponse.data;
@@ -205,7 +205,7 @@ function renderMonthView() {
   // Calcular cuántas celdas necesitamos añadir del mes siguiente
   const nextMonthDays = 42 - cellsCount; // 42 = 6 filas x 7 días
 
-  // Días del mes siguiente (para completar última semana)
+  // Días del mes siguiente (completar última semana)
   for (let day = 1; day <= nextMonthDays; day++) {
     const dayDate = new Date(year, month + 1, day);
     const dayElement = createDayElement(dayDate, true);
@@ -223,7 +223,7 @@ function createDayElement(date, isOtherMonth = false, isToday = false) {
 
   const day = date.getDate();
 
-  // Tareas y eventos para este día
+  // Tareas/eventos para este día
   const dayTasks = getTasksForDateFromCache(date);
   const dayEvents = getEventsForDateFromCache(date);
 
@@ -237,12 +237,12 @@ function createDayElement(date, isOtherMonth = false, isToday = false) {
 
   dayElement.appendChild(dayNumberElement);
 
-  // Si hay tareas o eventos, mostrarlos
+  // Si hay tareas/eventos, mostrarlos
   if (dayTasks.length > 0 || dayEvents.length > 0) {
     const itemsContainer = document.createElement("div");
     itemsContainer.className = "calendar-day-items";
 
-    // Mostrar hasta 2 elementos (combinando tareas y eventos)
+    // Mostrar hasta 2 elementos (tareas y/o eventos)
     const allItems = [...dayTasks, ...dayEvents];
     const visibleItems = allItems.slice(0, 2);
     const remainingItems = allItems.length - 2;
@@ -264,7 +264,7 @@ function createDayElement(date, isOtherMonth = false, isToday = false) {
       itemsContainer.appendChild(itemElement);
     });
 
-    // Si hay más de 2 elementos, mostrar +
+    // Si > 2 elementos, mostrar +
     if (remainingItems > 0) {
       const moreItemsElement = document.createElement("div");
       moreItemsElement.className = "more-items";
@@ -281,7 +281,7 @@ function createDayElement(date, isOtherMonth = false, isToday = false) {
   return dayElement;
 }
 
-// Modal con detalles de tareas/eventos para un día específico
+// Modal con detalles de tareas/eventos para un día
 function showDayDetails(date) {
   if (!dayDetailsModal || !dayDetailsTitle || !dayTasksList || !dayEventsList)
     return;
@@ -299,7 +299,7 @@ function showDayDetails(date) {
 
   dayDetailsTitle.textContent = `Actividades para el ${formattedDate}`;
 
-  // Obtener tareas y eventos para este día usando los datos en caché
+  // Obtener tareas y eventos para el día usando caché
   const dayTasks = getTasksForDateFromCache(date);
   const dayEvents = getEventsForDateFromCache(date);
 
@@ -309,7 +309,7 @@ function showDayDetails(date) {
     dayTasks.forEach((task) => {
       const taskEl = createTaskElement(task);
 
-      // Modificar los botones de editar dentro del modal de día
+      // Modificar botones de editar dentro del modal de día
       const editBtn = taskEl.querySelector(".btn-edit");
       if (editBtn) {
         const originalClickHandler = editBtn.onclick;
@@ -359,7 +359,7 @@ function showDayDetails(date) {
   dayDetailsModal.style.display = "block";
 }
 
-// Obtiene las tareas para una fecha específica desde la caché
+// Obtiene tareas para una fecha desde la caché
 function getTasksForDateFromCache(date) {
   // Usar los datos cacheados
   return cachedTasks.filter((task) => {
@@ -368,7 +368,7 @@ function getTasksForDateFromCache(date) {
   });
 }
 
-// Obtiene los eventos para una fecha específica desde la caché
+// Obtiene eventos para una fecha desde la caché
 function getEventsForDateFromCache(date) {
   // Usar los datos cacheados
   return cachedEvents.filter((event) => {
@@ -383,9 +383,7 @@ function init() {
   renderCalendar();
 }
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", init);
 
-// Exportar funciones necesarias
 window.renderCalendar = renderCalendar;
 export { renderCalendar };

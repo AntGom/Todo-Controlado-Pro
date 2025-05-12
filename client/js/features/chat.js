@@ -329,7 +329,7 @@ function updateAllUsersList() {
     onlineUsers.map((user) => [user.userId, user])
   );
 
-  // Filtrar usuarios (exceptuando a uno mismo)
+  // Filtrar usuarios (exceptuando a mi)
   const otherUsers = allUsers.filter((user) => user._id !== currentUser._id);
 
   if (otherUsers.length === 0) {
@@ -387,7 +387,7 @@ function updateOnlineCount() {
   }
 }
 
-// Actualizar indicador de mensajes no leídos
+// Actualizar indicador mensajes NO leídos
 function updateUnreadIndicator(userId) {
   const userElement = document.querySelector(
     `.user-item[data-user-id="${userId}"]`
@@ -405,17 +405,17 @@ function updateUnreadIndicator(userId) {
 
 // Cambiar de sala
 async function switchRoom(roomId, username = null) {
-  // 1. Actualizar estado local
+  // Actualizar estado local
   const previousRoom = currentRoom;
   currentRoom = roomId;
 
-  // 2. Actualizar UI
+  // Actualizar UI
   updateRoomUI(roomId, username);
 
-  // 3. Cargar mensajes
+  // Cargar mensajes
   await loadMessages(roomId);
 
-  // 4. Marcar como leídos si es chat privado
+  // Marcar como leídos si es chat privado
   if (roomId.startsWith("private_")) {
     try {
       const response = await api.markMessagesAsRead(roomId);
@@ -423,7 +423,7 @@ async function switchRoom(roomId, username = null) {
       if (response.success) {
         socket.emit("mark_as_read", { room: roomId });
 
-        // Extraer ID del otro usuario
+        // ID del otro usuario
         const otherUserId = roomId
           .replace("private_", "")
           .replace(currentUser._id.toString(), "")
@@ -438,7 +438,7 @@ async function switchRoom(roomId, username = null) {
     }
   }
 
-  // 5. Scroll al final
+  // Scroll al final
   if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
@@ -466,13 +466,12 @@ function updateRoomUI(roomId, username) {
   });
 }
 
-// Enviar mensaje
+// Enviar mensaje WebSocket
 function sendMessage() {
   const text = chatMessageInput.value.trim();
 
   if (!text || !isConnected) return;
 
-  // Enviar mensaje a través de WebSocket
   socket.emit("send_message", {
     text,
     room: currentRoom,
@@ -482,7 +481,7 @@ function sendMessage() {
   chatMessageInput.value = "";
 }
 
-// Eliminar mensaje (solo admin)
+// Eliminar mensaje (solo admin/mio)
 async function deleteMessage(messageId) {
   if (!isAdmin && !isOwnMessage(messageId)) return;
 
@@ -504,7 +503,7 @@ async function deleteMessage(messageId) {
   }
 }
 
-// Comprobar si un mensaje es propio
+// Comprobar si un mensaje es mio
 async function isOwnMessage(messageId) {
   if (!currentUser) return false;
 
@@ -533,7 +532,7 @@ function addSystemMessage(text) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Renderizar todos los mensajes
+// Renderizar todos  mensajes
 function renderMessages(messages) {
   if (!chatMessages) return;
 

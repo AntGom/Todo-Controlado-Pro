@@ -21,7 +21,7 @@ const cache = {
   },
 };
 
-// Tiempo de validez (5 minutos)
+// Validez (5 minutos)
 const CACHE_TTL = 5 * 60 * 1000;
 
 // Verificar si la caché es válida

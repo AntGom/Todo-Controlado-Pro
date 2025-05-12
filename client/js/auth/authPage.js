@@ -54,6 +54,8 @@ function showLoginForm() {
   forgotPasswordForm.classList.add("hidden");
   loginTabBtn.classList.add("active");
   registerTabBtn.classList.remove("active");
+
+  loginForm.scrollIntoView({ behavior: "smooth" });
 }
 
 function showRegisterForm() {
@@ -62,6 +64,8 @@ function showRegisterForm() {
   forgotPasswordForm.classList.add("hidden");
   loginTabBtn.classList.remove("active");
   registerTabBtn.classList.add("active");
+
+  registerForm.scrollIntoView({ behavior: "smooth" });
 }
 
 function showForgotPasswordForm() {
@@ -70,7 +74,10 @@ function showForgotPasswordForm() {
   forgotPasswordForm.classList.remove("hidden");
   loginTabBtn.classList.remove("active");
   registerTabBtn.classList.remove("active");
+
+  forgotPasswordForm.scrollIntoView({ behavior: "smooth" });
 }
+
 
 // Manejar inicio de sesión
 async function handleLogin(e) {

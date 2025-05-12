@@ -125,7 +125,6 @@ La aplicación implementa dos roles principales con diferentes niveles de acceso
 - Puede moderar el chat (eliminar cualquier mensaje)
 - Tiene acceso a funciones de administración avanzadas
 - Recibe una identificación visual especial en la interfaz (etiqueta de "ADMIN")
-- Puede gestionar usuarios (en la versión actual solo a través de API)
 
 La distinción de roles se implementa tanto en el backend (middleware de autorización) como en el frontend (UI condicional).
 
@@ -194,11 +193,23 @@ Multer ofrece un control granular sobre la subida de archivos, permitiendo valid
 
 1. Clonar el repositorio
 2. Crear archivo `.env` con las variables necesarias (ver `.env.example`)
-3. Instalar dependencias:
+3. Instalar dependencias del Backend:
    ```
    npm install
    ```
-4. Iniciar el servidor:
+4. Iniciar el servidor del Backend:
+   ```
+   npm run dev
+
+5. Entrar en la carpeta del cliente
+   ```
+   cd client
+
+6. Instalar dependencias del Fontend:
+   ```
+   npm install
+   ```
+7. Iniciar el servidor:
    ```
    npm run dev
    ```

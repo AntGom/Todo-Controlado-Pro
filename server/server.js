@@ -33,6 +33,7 @@ app.use(corsMiddleware);
 app.use(mongoSanitize());
 // Directorio para archivos estáticos
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use(express.static(path.join(__dirname, '../client')));
 
 // Rutas
 app.use('/api/auth', require('./routes/authRoutes'));
@@ -40,6 +41,7 @@ app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/messages', require('./routes/chatRoutes'));
+
 
 // Configuración WebSockets para chat
 require('./config/socket')(io);

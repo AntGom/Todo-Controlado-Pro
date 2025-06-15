@@ -96,9 +96,11 @@ exports.getMe = async (req, res) => {
 
 // Logout
 exports.logout = (req, res) => {
-  res.cookie("token", "none", {
-    expires: new Date(Date.now() + 10 * 1000),
+  res.clearCookie("token", {
     httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    path: "/",
   });
 
   console.log("Usuario desconectado");
@@ -199,13 +201,13 @@ const sendTokenResponse = (user, statusCode, res) => {
       Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-    secure: process.env.NODE_ENV === 'production' ? true : false,
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === "production" ? true : false,
   };
 
   res
     .status(statusCode)
-    .cookie('token', token, options)
+    .cookie("token", token, options)
     .json({
       success: true,
       token,
@@ -213,8 +215,7 @@ const sendTokenResponse = (user, statusCode, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role
-      }
+        role: user.role,
+      },
     });
 };
-

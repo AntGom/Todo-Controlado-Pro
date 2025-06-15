@@ -152,9 +152,9 @@ function connectSocket() {
   try {
     // Asegurarse de que usamos la URL correcta
     const socketURL =
-      window.location.hostname === "localhost"
-        ? `http://${window.location.hostname}:5000`
-        : window.location.origin;
+  window.location.hostname === "localhost"
+    ? `http://${window.location.hostname}:5000`
+    : "https://todo-controlado-pro.onrender.com";
 
     socket = io(socketURL, {
       withCredentials: true,

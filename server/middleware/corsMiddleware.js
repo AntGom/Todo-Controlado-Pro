@@ -1,3 +1,4 @@
+// No necesitas importar 'cors' aquí porque haces un middleware manual
 const allowedOrigins = [
   "https://todo-controlado-pro.vercel.app",
   "https://todo-controlado-pro-git-main-antonios-projects-99da8543.vercel.app",
@@ -21,6 +22,10 @@ function corsMiddleware(req, res, next) {
       return res.sendStatus(200);
     }
 
+    next();
+  } else if (!origin) {
+    // Si no hay origin (por ejemplo, peticiones desde Postman o backend a backend),
+    // permitimos que continúe (opcional, según tu caso)
     next();
   } else {
     res.status(403).send("Not allowed by CORS");

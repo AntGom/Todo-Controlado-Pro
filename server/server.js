@@ -46,26 +46,25 @@ app.use(cookieParser());
 app.use(corsMiddleware);
 app.use(mongoSanitize());
 
-// Directorio para archivos estáticos
+// Archivos estáticos
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use(express.static(path.join(__dirname, '../client')));
 
-// Rutas
+// Rutas API
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/messages', require('./routes/chatRoutes'));
 
-// Configuración WebSockets para chat
+// Configuración WebSocket para chat
 require('./config/socket')(io);
 
 const PORT = process.env.PORT || 5000;
-
 server.listen(PORT, () => console.log(`Servidor escuchando en puerto ${PORT}`));
 
-// Errores no capturados
+// Manejo de errores no capturados
 process.on('unhandledRejection', (err) => {
-  console.log(`Error: ${err.message}`);
+  console.error(`Error: ${err.message}`);
   server.close(() => process.exit(1));
 });

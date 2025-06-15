@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/auth", "destination": "/auth.html" },
+    { "source": "/chat", "destination": "/chat.html" },
+    { "source": "/index", "destination": "/index.html" },
+    { "source": "/profile", "destination": "/profile.html" },
+    { "source": "/Reset-password", "destination": "/resetPassword.html" }
+  ]
+}

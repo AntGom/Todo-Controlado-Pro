@@ -15,9 +15,23 @@ connectDB();
 
 const app = express();
 const server = http.createServer(app);
+
+const allowedOriginsSocket = [
+  'https://todo-controlado-pro.vercel.app',
+  'https://todo-controlado-pro-git-main-antonios-projects-99da8543.vercel.app',
+  'https://todo-controlado-nio9tpp2j-antonios-projects-99da8543.vercel.app',
+  'http://localhost:5173'
+];
+
 const io = socketIo(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' ? false : ['http://localhost:5173'],
+    origin: function(origin, callback) {
+      if (!origin || allowedOriginsSocket.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true
   }
 });
@@ -31,6 +45,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(corsMiddleware);
 app.use(mongoSanitize());
+
 // Directorio para archivos estáticos
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use(express.static(path.join(__dirname, '../client')));
@@ -41,7 +56,6 @@ app.use('/api/tasks', require('./routes/taskRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/messages', require('./routes/chatRoutes'));
-
 
 // Configuración WebSockets para chat
 require('./config/socket')(io);

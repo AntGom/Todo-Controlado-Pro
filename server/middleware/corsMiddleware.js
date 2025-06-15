@@ -1,25 +1,27 @@
-const cors = require('cors');
-
 const allowedOrigins = [
-  'http://localhost:5173',
-  'https://todo-controlado-pro.vercel.app/'
+  'https://todo-controlado-pro.vercel.app',
+  'https://todo-controlado-pro-git-main-antonios-projects-99da8543.vercel.app',
+  'https://todo-controlado-nio9tpp2j-antonios-projects-99da8543.vercel.app',
+  'http://localhost:5173'
 ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Permitir peticiones sin origin (como desde curl o Postman) y las de origen permitido
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
+function corsMiddleware(req, res, next) {
+  const origin = req.headers.origin;
 
-const corsMiddleware = cors(corsOptions);
+  if (!origin || allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin || '*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(200);
+    }
+
+    next();
+  } else {
+    res.status(403).send('Not allowed by CORS');
+  }
+}
 
 module.exports = corsMiddleware;
